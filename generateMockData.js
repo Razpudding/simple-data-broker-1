@@ -48,52 +48,60 @@ function generateMockData () {
       "number": '04',
       "days": 30
     },
-    // {
-    //   "number": '05',
-    //   "days": 31
-    // },
-    // {
-    //   "number": '06',
-    //   "days": 30
-    // },
-    // {
-    //   "number": '07',
-    //   "days": 31
-    // },
-    // {
-    //   "number": '08',
-    //   "days": 31
-    // },
-    // {
-    //   "number": '09',
-    //   "days": 30
-    // },
-    // {
-    //   "number": '10',
-    //   "days": 31
-    // },
-    //  {
-    //   "number": '11',
-    //   "days": 30
-    // },
-    // {
-    //   "number": '12',
-    //   "days": 31
-    // }
+    {
+      "number": '05',
+      "days": 31
+    },
+    {
+      "number": '06',
+      "days": 30
+    },
+    {
+      "number": '07',
+      "days": 31
+    },
+    {
+      "number": '08',
+      "days": 31
+    },
+    {
+      "number": '09',
+      "days": 30
+    },
+    {
+      "number": '10',
+      "days": 31
+    },
+     {
+      "number": '11',
+      "days": 30
+    },
+    {
+      "number": '12',
+      "days": 31
+    }
   ]
   
   const data = [];
+
+  generateYear('16', 3);
+  generateYear('17', 12);
+  generateYear('18', 5);
   
-  months.forEach(month => {
-    const monthData = []
-    
-    for (let i = 1; i <= month.days; i++) {
-      const day = leftPad(i, 2, '0')
-      monthData.push(`${day}${month.number}181300007184835537234795483632`)
-    }
-    
-    data.push(monthData.join(';'))
-  })
+  function generateYear(yearNumber, generatedMonths) {
+    months.forEach((month, index) => {
+      if (index <= generatedMonths) {
+        const monthData = []
+        
+        for (let i = 1; i <= month.days; i++) {
+          const day = leftPad(i, 2, '0')
+          monthData.push(`${day}${month.number}${yearNumber}1300007184835537234795483632`)
+        }
+        
+        data.push(monthData.join(';'))
+      }
+    })
+  }
   
   return data.join(';');
 }

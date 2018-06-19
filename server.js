@@ -45,14 +45,12 @@ app.use('/api', api);
 //This function captures the query in the url and saves it to a mongodb
 //Any data is accepted as long as a 'deviceId' and 'status' are provided with the request
 function writeData(req, res){
-  console.log(req.body);
   try {
     let input = req.body  //Capture the query in the request
-    console.log(req.body)
+
+    DataPoint.remove({});
 
     if (!req.body.meetdata) req.body.meetdata = generateMockData();
-
-    console.log(req.body);
 
     //Turned the next limit off for testing purposes TODO: turn it on again to reasonable limit
     //if (req.headers['content-length'] > 100 || req.url.length > 5000) {throw 'Request too large to process'};
@@ -61,10 +59,7 @@ function writeData(req, res){
     if (isNaN(Number(input.status))) {throw 'Provided status is not a number'}
     if (!input.meetdata) {throw 'No data provided in message'}
 
-
     const dataPoints = input.meetdata.split(';').map(dp => {
-      //console.log(dp)
-
       const dateString = dp.substr(0, 6);
       const date = moment(dateString, "DDMMYY").format();
 
@@ -75,8 +70,6 @@ function writeData(req, res){
         metrics: dp
       }
     })
-
-    console.log(dataPoints)
 
     DataPoint.insertMany(dataPoints, function(error, docs) {
       if (error) {

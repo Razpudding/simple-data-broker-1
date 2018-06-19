@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run build && node server.js",
-    "build": "cd ./front-end && npm run build",
+    "build": "cd ./front-end && npm i && npm run build",
     "start-dev": "npm run start",
     "test": "nodemon server.js"
   },
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Razpudding/simple-data-broker#readme",
   "dependencies": {
+    "@vue/cli": "^3.0.0-rc.3",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",

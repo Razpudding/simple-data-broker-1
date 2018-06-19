@@ -101,4 +101,4 @@ db.once('open', function() {
   dbConnected = true
 })
 
-app.listen(3000) //Listen for communication on this port
+app.listen(process.env.PORT || 3000) //Listen for communication on this port

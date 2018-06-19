@@ -25,12 +25,13 @@ router.get('/months', async (req, res) => {
 
   const startDate = new Date(year, 0, 2);
 
-  const endDate = new Date(new Date().setFullYear(new Date(startDate).getFullYear() + 1))
-
+  const endDate = new Date(startDate.getFullYear() + 1, 0, 1)
+  
+  
   const data = await DataPoint.find({
     date: {
-        $gte: startDate,
-        $lt: endDate
+      $gte: startDate,
+      $lt: endDate
     }
   })
 
@@ -111,8 +112,6 @@ router.get('/dump', async (req, res) => {
       $lte: endDate
     }
   })
-
-  console.log(DataPoint.schema);
   
   var mkdirp = require('mkdirp');
   

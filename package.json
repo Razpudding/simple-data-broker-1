@@ -4,9 +4,9 @@
   "description": "This Node server is a simple data broker which accepts POST requests and stores data in a database.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run build && node server.js",
     "build": "cd ./front-end && npm run build",
-    "start-prod": "npm run build && npm run start",
+    "start-dev": "npm run start",
     "test": "nodemon server.js"
   },
   "repository": {

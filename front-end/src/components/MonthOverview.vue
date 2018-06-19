@@ -64,7 +64,7 @@ export default {
     getMonths() {
       this.loading = true;
 
-      axios.get(`http://localhost:3000/api/months?year=${this.selectedYear}`)
+      axios.get(`/api/months?year=${this.selectedYear}`)
         .then(res => {
           this.months = res.data;
           this.loading = false;

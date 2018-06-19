@@ -31,7 +31,7 @@
         </v-card>
       </v-dialog>
 
-      <v-btn :href="`http://localhost:3000/api/dump?startdate=${month.startDate}&enddate=${month.endDate}`" icon>
+      <v-btn :href="`/api/dump?startdate=${month.startDate}&enddate=${month.endDate}`" icon>
         <v-icon>cloud_download</v-icon>
       </v-btn>
     </v-toolbar>
@@ -69,7 +69,7 @@
           </v-card>
         </v-dialog>
 
-        <v-btn :href="`http://localhost:3000/api/dump?startdate=${week.startDate}&enddate=${week.endDate}`" icon>
+        <v-btn :href="`/api/dump?startdate=${week.startDate}&enddate=${week.endDate}`" icon>
           <v-icon>cloud_download</v-icon>
         </v-btn>
       </v-list-tile>
@@ -94,7 +94,7 @@
       deleteData(startDate, endDate, monthName, weekNumber) {
         this.awaitingResponse = true
 
-        axios.get(`http://localhost:3000/api/delete?startdate=${startDate}&enddate=${endDate}`)
+        axios.get(`/api/delete?startdate=${startDate}&enddate=${endDate}`)
           .then(res => {
             this.monthDialog = false
             this.weekDialog = false

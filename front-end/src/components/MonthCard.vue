@@ -23,7 +23,7 @@
             <v-btn
               color="red" 
               flat="flat" 
-              @click="deleteData(month.startDate, month.endDate, month.name)"
+              @click="removeData(month.startDate, month.endDate)"
               :disabled="awaitingResponse"
               :loading="awaitingResponse"
             >Delete</v-btn>
@@ -37,61 +37,36 @@
     </v-toolbar>
     <v-divider></v-divider>
     <v-list dense class="pt-0">
-      <v-list-tile v-for="week in month.weeks" :key="week.name">
-        <v-list-tile-content>
-          <v-list-tile-title>Week {{ week.name }}</v-list-tile-title>
-        </v-list-tile-content>
-
-        <v-btn icon @click.native.stop="weekDialog = true">
-          <v-icon>delete</v-icon>
-        </v-btn>
-
-        <v-dialog v-model="weekDialog" max-width="350">
-          <v-card>
-            <v-card-title class="headline">Are you sure?</v-card-title>
-            <v-card-text>The data will be gone forever! Make sure you first download the data.</v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="grey" 
-                flat="flat" 
-                @click.native="weekDialog = false"
-                v-if="!awaitingResponse"
-              >Cancel</v-btn>
-              <v-btn
-                color="red" 
-                flat="flat" 
-                @click="deleteData(week.startDate, week.endDate, month.name, week.name)"
-                :disabled="awaitingResponse"
-                :loading="awaitingResponse"
-              >Delete</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-
-        <v-btn :href="`/api/dump?startdate=${week.startDate}&enddate=${week.endDate}`" icon>
-          <v-icon>cloud_download</v-icon>
-        </v-btn>
-      </v-list-tile>
+      <WeekRow 
+        v-for="week in month.weeks" 
+        :key="week.name" 
+        :week="week"
+        @removeData="({ weekNumber }) => {
+          $emit('removeData', { monthName: month.name, weekNumber })
+        }"
+      />
     </v-list>
   </v-card>
 </template>
 
 <script>
   import axios from 'axios';
+  import WeekRow from './WeekRow.vue';
 
   export default {
-    props: ["month", "removeData"],
+    components: {
+      WeekRow
+    },
+    props: ["month"],
     data () {
       return {
         right: null,
-        weekDialog: false,
         monthDialog: false,
         awaitingResponse: false
       }
     },
     methods: {
-      deleteData(startDate, endDate, monthName, weekNumber) {
+      removeData(startDate, endDate) {
         this.awaitingResponse = true
 
         axios.get(`/api/delete?startdate=${startDate}&enddate=${endDate}`)
@@ -100,7 +75,7 @@
             this.weekDialog = false
             this.awaitingResponse = false
 
-            this.$emit('removeData', { monthName, weekNumber })
+            this.$emit('removeData', { monthName: this.month.name })
           })
           .catch(error => {
             console.log(error)

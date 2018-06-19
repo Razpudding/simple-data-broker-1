@@ -48,30 +48,30 @@ function generateMockData () {
       "number": '04',
       "days": 30
     },
-    {
-      "number": '05',
-      "days": 31
-    },
-    {
-      "number": '06',
-      "days": 30
-    },
-    {
-      "number": '07',
-      "days": 31
-    },
-    {
-      "number": '08',
-      "days": 31
-    },
-    {
-      "number": '09',
-      "days": 30
-    },
-    {
-      "number": '10',
-      "days": 31
-    },
+    // {
+    //   "number": '05',
+    //   "days": 31
+    // },
+    // {
+    //   "number": '06',
+    //   "days": 30
+    // },
+    // {
+    //   "number": '07',
+    //   "days": 31
+    // },
+    // {
+    //   "number": '08',
+    //   "days": 31
+    // },
+    // {
+    //   "number": '09',
+    //   "days": 30
+    // },
+    // {
+    //   "number": '10',
+    //   "days": 31
+    // },
     //  {
     //   "number": '11',
     //   "days": 30

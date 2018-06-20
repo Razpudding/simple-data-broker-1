@@ -1,13 +1,18 @@
 <template>
   <v-container class="full-height" fluid grid-list-xl>
-    <v-select
-      :items="years"
-      v-model="selectedYear"
-      label="Select"
-      item-value="text"
-      y-offset
-      single-line
-    ></v-select>
+
+    <header class="page-header">
+      <v-select
+        :items="years"
+        v-model="selectedYear"
+        label="Select"
+        item-value="text"
+        y-offset
+        single-line
+      ></v-select>
+
+      <DatabaseInfo />
+    </header>
 
     <v-layout row wrap>
       <v-layout v-if="loading" justify-center>
@@ -33,11 +38,14 @@
 
 <script>
 import MonthCard from './MonthCard.vue'
+import DatabaseInfo from './DatabaseInfo.vue'
+
 import axios from 'axios'
 
 export default {
   components: {
-    MonthCard
+    MonthCard,
+    DatabaseInfo
   },
   created() {
     this.getMonths();
@@ -112,5 +120,10 @@ export default {
   .empty-state {
     font-size: 2.5rem;
     color: rgba(0,0,0,.54);
+  }
+
+  .page-header {
+    display: flex;
+    align-items: center;
   }
 </style>

@@ -2,6 +2,7 @@ const express = require('express')
 const moment = require('moment')
 const jsonfile = require('jsonfile')
 const Json2csvParser = require('json2csv').Parser;
+const pretty = require('prettysize');
 
 const router = express.Router();
 
@@ -13,6 +14,20 @@ router.get('/', async (req, res) => {
   res.send('API here!');
   
   const data = await DataPoint.find({});
+});
+
+router.get('/stats', async (req, res) => {
+  //Get stats of DataPoint collection
+  DataPoint.collection.stats()
+    .then(resuls => {
+      const storageSize = pretty(resuls.storageSize);
+
+      res.send({
+        current: storageSize,
+        max: '20 GB',
+        status: 0
+      })
+    })
 });
 
 router.get('/months', async (req, res) => {

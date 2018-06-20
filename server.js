@@ -22,6 +22,7 @@ mongoose.Promise = global.Promise //Use the built in ES6 Promise
 
 //Connect to the database as per url provided in the .env file
 mongoose.connect(process.env.MONGO_DB_URL)
+
 //Store the connection to the db so we can reference it
 const db = mongoose.connection
 let dbConnected = false

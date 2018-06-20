@@ -12,7 +12,10 @@ const express = require('express')        //used to create a webserver
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const moment = require('moment')
+const schedule = require('node-schedule')
+
 const generateMockData = require('./generateMockData')
+const config = require('./config')
 
 //Api module
 const api = require('./api')
@@ -87,6 +90,39 @@ function writeData(req, res){
     res.status(406)
     res.send(e)
   }
+}
+
+//Check data size everyday at midnight
+schedule.scheduleJob({hour: 00, minute: 00}, function(){
+  checkDataSize();
+});
+
+//Check if database is nearly full
+//If so, delete data that can be deleted
+function checkDataSize () {
+  DataPoint.collection.stats()
+    .then(result => {
+      // calculate percentage of used disk space
+      const storageSize = result.storageSize / (1024 * 1024);
+      const maxGB = config.maxDatabaseSize;
+
+      const usedStorage = storageSize / (maxGB * 1000);
+
+      if (usedStorage > 0.8) {
+        // Remove the last 2000000 documents
+        DataPoint.find({}).sort({date: 'ascending'}).limit(2000000)
+          .then(docs => {
+            var ids = docs.map(function(doc) { return doc._id; });
+
+            DataPoint.remove({_id: {$in: ids}})
+              .then(docs => {
+                console.log(`removed ${docs.length} docs`)
+              })
+              .catch(err => console.log(err))
+          })
+          .catch(err => console.log(err))
+      }
+    })
 }
 
 db.once('open', function() {

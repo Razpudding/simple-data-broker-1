@@ -4,6 +4,8 @@ const jsonfile = require('jsonfile')
 const Json2csvParser = require('json2csv').Parser;
 const pretty = require('prettysize');
 
+const config = require('./config')
+
 const router = express.Router();
 
 const DataPoint = require('./models/dataPoint')
@@ -24,7 +26,7 @@ router.get('/stats', async (req, res) => {
 
       res.send({
         current: storageSize,
-        max: '20 GB',
+        max: `${config.maxDatabaseSize} GB`,
         status: 0
       })
     })

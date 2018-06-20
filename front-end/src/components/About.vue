@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-container class="full-height" fluid grid-list-xl>
     About
-  </div>
+  </v-container>
 </template>
 
 <script>

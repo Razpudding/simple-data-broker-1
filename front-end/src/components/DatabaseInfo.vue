@@ -25,7 +25,7 @@ export default {
       .then(({ data }) => {
         this.current = data.current;
         this.max = data.max;
-        // this.status = data.status;
+        this.status = data.status;
       })
   },
   computed: {

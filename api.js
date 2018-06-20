@@ -21,13 +21,25 @@ router.get('/', async (req, res) => {
 router.get('/stats', async (req, res) => {
   //Get stats of DataPoint collection
   DataPoint.collection.stats()
-    .then(resuls => {
-      const storageSize = pretty(resuls.storageSize);
+    .then(result => {
+      const storageSize = result.storageSize / (1024 * 1024);
+      const maxGB = config.maxDatabaseSize;
+      const usedStorage = storageSize / (maxGB * 1000);
+      let status;
+
+      
+      if (usedStorage > 0.8) {
+        status = 2;
+      } else if (usedStorage > 0.5) {
+        status = 1;
+      } else {
+        status = 0;
+      }
 
       res.send({
-        current: storageSize,
-        max: `${config.maxDatabaseSize} GB`,
-        status: 0
+        current: pretty(result.storageSize),
+        max: `${maxGB} GB`,
+        status
       })
     })
 });

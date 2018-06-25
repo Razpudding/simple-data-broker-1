@@ -5,7 +5,6 @@ import axios from 'axios'
 import { store } from '../store.js'
 
 import Home from '../components/Home.vue'
-import About from '../components/About.vue'
 import Login from '../components/Login.vue'
 
 Vue.use(Router)

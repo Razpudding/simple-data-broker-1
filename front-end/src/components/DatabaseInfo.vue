@@ -1,6 +1,6 @@
 <template>
   <div class="database-info">
-    <span>Database usage: </span>
+    <span>DB usage: </span>
     <span
       :class="`status ${statusClass}`"
       v-if="current && max"

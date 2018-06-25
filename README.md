@@ -15,6 +15,15 @@ The server accepts two requests:
 
 2. `GET /` If the root of the server is requested, all available data is dumped back to the requester. Note: I have no idea how stable that is or how long the data is allowed to be for this to work. This is purely a test feature and should prob be protected.
 
+### .env
+
+Make sure you make a `.evn` file, containing:
+
+```
+MONGO_DB_URL= url to mongodb database
+AUTH_SECRET= secret used for auth
+```
+
 ### API
 
 ```GET /months```
@@ -82,3 +91,5 @@ For the layout of the dashboard is build using [Vuetify](https://vuetifyjs.com/e
 ### Authentication
 
 For authentication the dashboard is using [JWT tokens](https://jwt.io/). This way the requests get checked in the back-end by sending the user's token with every request. If the token doesn't work anymore, the user has to log in again and a new token is generated.
+
+[This](https://www.djamware.com/post/5ac8338780aca714d19d5b9e/securing-mevn-stack-vuejs-2-web-application-using-passport) guide was used to set up the authentication process.

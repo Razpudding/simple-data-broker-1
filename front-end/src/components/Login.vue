@@ -4,7 +4,7 @@
       <v-flex xs12 class="text-xs-center" mt-5>
         <h1>Sign In</h1>
       </v-flex>
-      <v-flex xs12 sm4 offset-sm4>
+      <v-flex xs12 sm2 offset-sm5>
         <form @submit.prevent="onSubmit">
           <v-layout column>
             <v-flex>

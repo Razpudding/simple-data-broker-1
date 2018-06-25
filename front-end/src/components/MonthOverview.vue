@@ -56,12 +56,13 @@ export default {
     return {
       loading: false,
       error: null,
-      selectedYear: '2018',
+      selectedYear: (new Date).getFullYear(),
       months: [],
       years: [
-        { text: '2018' },
-        { text: '2017' },
-        { text: '2016' }
+        { text: (new Date).getFullYear() },
+        { text: (new Date).getFullYear() - 1 },
+        { text: (new Date).getFullYear() - 2 },
+        { text: (new Date).getFullYear() - 3 }
       ]
     }
   },

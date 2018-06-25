@@ -15,9 +15,9 @@ The server accepts two requests:
 
 2. `GET /` If the root of the server is requested, all available data is dumped back to the requester. Note: I have no idea how stable that is or how long the data is allowed to be for this to work. This is purely a test feature and should prob be protected.
 
-### .env
+### Environment
 
-Make sure you make a `.evn` file, containing:
+Make sure you make a `.env` file, containing:
 
 ```
 MONGO_DB_URL= url to mongodb database

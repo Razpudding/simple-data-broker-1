@@ -37,10 +37,12 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import MonthCard from './MonthCard.vue'
 import DatabaseInfo from './DatabaseInfo.vue'
 
-import axios from 'axios'
+import { store } from '../store.js'
 
 export default {
   components: {
@@ -72,6 +74,8 @@ export default {
     getMonths() {
       this.loading = true;
 
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken')
+
       axios.get(`/api/months?year=${this.selectedYear}`)
         .then(res => {
           this.months = res.data;
@@ -80,6 +84,14 @@ export default {
         .catch(err => {
           this.loading = false;
           this.error = err;
+          
+          if (err.response.status === 401) {
+            store.loggedIn = false;
+
+            this.$router.push({
+              name: 'Login'
+            })
+          }
         })
     },
     onRemoveData({ monthName, weekNumber }) {

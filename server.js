@@ -17,7 +17,7 @@ const schedule = require('node-schedule')
 const generateMockData = require('./generateMockData')
 const config = require('./config')
 
-//Api module
+//Route modules
 const api = require('./api')
 
 require('dotenv').config()   //Secret info

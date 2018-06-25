@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
+      v-if="store.loggedIn"
       fixed
       v-model="drawer"
       app
@@ -25,8 +26,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="store.loggedIn"></v-toolbar-side-icon>
       <v-toolbar-title>{{ $router.currentRoute.name }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn color="white" dark @click="logout" flat v-if="store.loggedIn">
+        Log out
+        <v-icon dark right>input</v-icon>
+      </v-btn>
+
     </v-toolbar>
     <v-content>
 
@@ -37,12 +44,24 @@
 </template>
 
 <script>
+import { store } from './store.js'
+
 export default {
   name: 'app',
   components: {},
   data() {
     return {
-      drawer: false
+      drawer: false,
+      store
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('jwtToken')
+      store.loggedIn = false;
+      this.$router.push({
+        name: 'Login'
+      })
     }
   }
 }

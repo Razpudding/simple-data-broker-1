@@ -23,21 +23,11 @@ export default {
     }
   },
   created() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken')
-
     axios.get('/api/stats')
       .then(({ data }) => {
         this.current = data.current;
         this.max = data.max;
         this.status = data.status;
-      })
-      .catch(err => {
-        if (err.response.status === 401) {
-          store.loggedIn = false;
-          this.$router.push({
-            name: 'Login'
-          })
-        }
       })
   },
   computed: {

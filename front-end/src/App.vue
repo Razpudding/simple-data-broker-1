@@ -58,7 +58,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('jwtToken')
-      store.loggedIn = false;
+      store.isLoggedIn = false;
       this.$router.push({
         name: 'Login'
       })

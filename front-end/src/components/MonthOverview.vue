@@ -74,24 +74,14 @@ export default {
     getMonths() {
       this.loading = true;
 
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken')
-
       axios.get(`/api/months?year=${this.selectedYear}`)
-        .then(res => {
+        .then(res => {  
           this.months = res.data;
           this.loading = false;
         })
         .catch(err => {
           this.loading = false;
           this.error = err;
-          
-          if (err.response.status === 401) {
-            store.loggedIn = false;
-
-            this.$router.push({
-              name: 'Login'
-            })
-          }
         })
     },
     onRemoveData({ monthName, weekNumber }) {

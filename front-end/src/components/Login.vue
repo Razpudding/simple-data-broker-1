@@ -4,11 +4,11 @@
       <v-flex xs12 class="text-xs-center" mt-5>
         <h1>Sign In</h1>
       </v-flex>
-      <v-flex xs12 sm2 offset-sm5 mt-3>
+      <v-flex xs12 sm4 offset-sm4>
         <form @submit.prevent="onSubmit">
           <v-layout column>
             <v-flex>
-              <v-alert v-for="(error, index) in errors" :key="index" type="error" dismissible>
+              <v-alert v-for="(error, index) in errors" :value="true" :key="index" type="error">
                 {{ error }}
               </v-alert>
             </v-flex>
@@ -29,7 +29,7 @@
                 v-model.trim="login.password"
                 required></v-text-field>
             </v-flex>
-            <v-flex class="text-xs-center" mt-5>
+            <v-flex class="text-xs-center">
               <v-btn color="primary" type="submit">Sign In</v-btn>
             </v-flex>
           </v-layout>
@@ -69,8 +69,9 @@ export default {
             name: 'Home'
           })
         })
-        .catch(e => {
-          this.errors.push(e)
+        .catch(err => {
+          console.log(err.message)
+          this.errors.push(err.message)
         })
     },
     register () {

@@ -79,7 +79,7 @@ The api requests are proxied to port `:3000`, so make sure to run the backe end 
 
 To build for production (do this on the server) run:
 
-```npm run build```
+```cd front-end && npm run build```
 
 If this task runs successful, the front-end app is served by de back end app.
 

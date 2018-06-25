@@ -107,7 +107,7 @@ function checkDataSize () {
       const maxGB = config.maxDatabaseSize;
 
       const usedStorage = storageSize / (maxGB * 1000);
-
+      
       if (usedStorage > 0.8) {
         // Remove the last 2000000 documents
         DataPoint.find({}).sort({date: 'ascending'}).limit(2000000)

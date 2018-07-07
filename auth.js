@@ -21,7 +21,7 @@ getToken = function (headers) {
 };
 
 router.post('/register', function(req, res) {
-  console.log(req.body)
+  //console.log(req.body)
 
   if (!req.body.username || !req.body.password) {
     res.json({success: false, msg: 'Please pass username and password.'});

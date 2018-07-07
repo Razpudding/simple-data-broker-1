@@ -3,6 +3,8 @@ This Node server is a simple data broker which accepts POST requests and stores 
 
 ## Usage
 1. Set up a mongodb, provide its MongoDB URI in a .env file
+2. `npm install` In the root folder as well as in the frontend folder
+3. Follow Vue instructions under API below
 2. Run the server using `npm start`
 3. Test if it runs correctly by sending a correct POST message (see below)
 

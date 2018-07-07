@@ -20,29 +20,7 @@ getToken = function (headers) {
   }
 };
 
-router.post('/register', function(req, res) {
-  console.log(req.body)
-
-  if (!req.body.username || !req.body.password) {
-    res.json({success: false, msg: 'Please pass username and password.'});
-  } else {
-    var newUser = new User({
-      username: req.body.username,
-      password: req.body.password
-    });
-    // save the user
-    newUser.save(function(err) {
-      if (err) {
-        return res.json({success: false, msg: 'Username already exists.'});
-      }
-      res.json({success: true, msg: 'Successful created new user.'});
-    });
-  }
-});
-
-router.post('/login', function(req, res) {
-  console.log(req.body)
-    
+router.post('/login', function(req, res) {    
   User.findOne({
     username: req.body.username
   }, function(err, user) {

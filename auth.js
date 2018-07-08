@@ -20,13 +20,7 @@ getToken = function (headers) {
   }
 };
 
-router.post('/register', function(req, res) {
-  console.log("Post to register was attempted but no new users are accepted at this time")
-});
-
-router.post('/login', function(req, res) {
-  console.log(req.body)
-    
+router.post('/login', function(req, res) {    
   User.findOne({
     username: req.body.username
   }, function(err, user) {

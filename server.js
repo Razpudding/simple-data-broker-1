@@ -17,6 +17,8 @@ const schedule = require('node-schedule')
 const generateMockData = require('./generateMockData')
 const config = require('./config')
 
+const User = require("./models/user");
+
 //Route modules
 const api = require('./api')
 
@@ -73,6 +75,28 @@ function checkDataSize () {
           .catch(err => console.log(err))
       }
     })
+}
+
+if (process.env.ADMIN_USERNAME && process.env.ADMIN_PASSWORD) {
+  //Create admin login when server boots up
+  //First remove existing user
+  User.remove({})
+    .catch(err => console.log(err))
+  
+  //Then create a new one
+  var newUser = new User({
+    username: process.env.ADMIN_USERNAME,
+    password: process.env.ADMIN_PASSWORD
+  });
+  
+  //Save the admin user
+  newUser.save(function(err) {
+    if (err) {
+      console.log('Something went wrong when creating user');
+    }
+  });
+} else {
+  console.log('No username and password were provided in .env')
 }
 
 db.once('open', function() {

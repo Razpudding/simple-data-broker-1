@@ -35,7 +35,6 @@ router.get('/stats', passport.authenticate('jwt', { session: false}), async (req
         const usedStorage = storageSize / (maxGB * 1000);
         let status;
 
-        
         if (usedStorage > 0.8) {
           status = 2;
         } else if (usedStorage > 0.5) {

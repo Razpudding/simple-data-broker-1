@@ -25,8 +25,18 @@ const api = require('./api')
 require('dotenv').config()   //Secret info
 mongoose.Promise = global.Promise //Use the built in ES6 Promise
 
+//Set the right URL and connection options for Mongoose
+const mongooseURL = process.env.MONGO_DB_URL
+const mongooseOptions = {auto_reconnect: true, reconnectInterval: 10000, connectTimeoutMS: 30000}
+
 //Connect to the database as per url provided in the .env file
-mongoose.connect(process.env.MONGO_DB_URL)
+//The application will wait for 30s before attempting this to allow the server to boot up mongodb
+//I tried doing this through the mongoose options but it doesn't seem to work correctly.
+setTimeout(() =>{
+  mongoose.connect(mongooseURL, mongooseOptions)
+  .then(
+    () => {},
+    err => console.log(err))}, 30000)
 
 //Store the connection to the db so we can reference it
 const db = mongoose.connection
